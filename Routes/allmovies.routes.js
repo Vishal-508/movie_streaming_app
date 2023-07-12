@@ -30,16 +30,25 @@ allmoviesController.get("/", async (req, res) => {
   
     });
 
-    allmoviesController.get("/singleProduct",async(req,res)=>{
-        const query=req.query;
-      
-    
-          const products = await MovieModel.findOne(query);
-          res.send(products)
-      
+    allmoviesController.get("/singleProduct/:id",async(req,res)=>{
+     
+      const {id}=req.params;
+      if(!id){
+          return res.status(400).send({message:"Id is required"})
+      }
+      try {
+        const products = await MovieModel.findOne({_id:id});
+        console.log(products)
+        return res.status(200).send(products);
+      } catch (e) {
+        return res.status(400).send({ error: e });
+      }
+          
       })
    
-      allmoviesController.post("/create", async (req, res) => {
+  
+  
+    allmoviesController.post("/create", async (req, res) => {
         const {
             title,
             description,

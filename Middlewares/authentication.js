@@ -10,6 +10,7 @@ const authentication =(req,res,next)=>{
         if(err){
             res.send("Please login")
         }else{
+        
             req.body.email=decoded.email;
             
             next()

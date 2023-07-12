@@ -19,13 +19,13 @@ userController.post("/login", async(req,res)=>{
           
           if(email==stored_email && password==stored_password){
               var token = jwt.sign({ email:email }, process.env.SECRET_KEY);
-              res.send({message:"Login Successfull", token })
+              res.status(200).send({message:"Login Successfull", token })
           }else{
-              res.send({message:"Invalid credentials, pelase signup if you haven't"})
+              res.status(400).send({message:"Invalid credentials, pelase signup if you haven't"})
           }
         }
     catch(err){
-        res.send({message:"Invalid credentials, pelase signup if you haven't"})
+        res.status(400).send({message:"Invalid credentials, pelase signup if you haven't"})
     }  
 })
 module.exports={
